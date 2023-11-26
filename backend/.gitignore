@@ -25,6 +25,9 @@ build
 # out
 **/out/
 
+# test
+**/test
+
 # BlueJ files
 *.ctxt
 
