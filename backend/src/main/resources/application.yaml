@@ -1,2 +1,11 @@
+# 程序端口
 server:
   port: 8090
+
+# 配置数据库连接
+spring:
+  datasource:
+    username: root
+    password: 121701cxC@..
+    url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
