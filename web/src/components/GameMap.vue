@@ -1,5 +1,5 @@
 <template>
-  <div ref="parent" class="gamemap">
+  <div ref="parent" class="gameMap">
     <canvas ref="canvas" tabindex="0"></canvas>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped>
-div.gamemap {
+div.gameMap {
   width: 100%;
   height: 100%;
   display: flex;

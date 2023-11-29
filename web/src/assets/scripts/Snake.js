@@ -2,12 +2,12 @@ import { AcGameObject } from "./AcGameObject";
 import { Cell } from "./Cell";
 
 export class Snake extends AcGameObject {
-    constructor(info, gamemap) {
+    constructor(info, gameMap) {
         super();
 
         this.id = info.id;
         this.color = info.color;
-        this.gamemap = gamemap;
+        this.gameMap = gameMap;
 
         this.cells = [new Cell(info.r, info.c)];  // 存放蛇的身体，cells[0]存放蛇头
         this.next_cell = null;  // 下一步的目标位置
@@ -23,7 +23,7 @@ export class Snake extends AcGameObject {
         this.eps = 1e-2;  // 允许的误差
 
         this.eye_direction = 0;
-        if (this.id === 1) this.eye_direction = 2;  // 左下角的蛇初始朝上，右上角的蛇朝下
+        if (this.id === 1) this.eye_direction = 2;  // 左下角的蛇眼睛初始朝上，右上角的蛇眼睛朝下
 
         this.eye_dx = [  // 蛇眼睛不同方向的x的偏移量
             [-1, 1],
@@ -48,9 +48,7 @@ export class Snake extends AcGameObject {
     }
 
     check_tail_increasing() {  // 检测当前回合，蛇的长度是否增加
-        if (this.step <= 10) return true;
-        if (this.step % 3 === 1) return true;
-        return false;
+        return this.step <= 10 || this.step % 3 === 1;
     }
 
     next_step() {  // 将蛇的状态变为走下一步
@@ -66,7 +64,7 @@ export class Snake extends AcGameObject {
             this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));
         }
 
-        if (!this.gamemap.check_valid(this.next_cell)) {  // 下一步操作撞了，蛇瞬间去世
+        if (!this.gameMap.check_valid(this.next_cell)) {  // 下一步操作撞了，蛇直接寄
             this.status = "die";
         }
     }
@@ -81,7 +79,7 @@ export class Snake extends AcGameObject {
             this.next_cell = null;
             this.status = "idle";  // 走完了，停下来
 
-            if (!this.check_tail_increasing()) {  // 蛇不变长
+            if (!this.check_tail_increasing()) {  // 蛇不变长（即砍掉蛇蛇的尾巴）
                 this.cells.pop();
             }
         } else {
@@ -109,8 +107,8 @@ export class Snake extends AcGameObject {
     }
 
     render() {
-        const L = this.gamemap.L;
-        const ctx = this.gamemap.ctx;
+        const L = this.gameMap.L;
+        const ctx = this.gameMap.ctx;
 
         ctx.fillStyle = this.color;
         if (this.status === "die") {

@@ -60,8 +60,8 @@ export class GameMap extends AcGameObject {
         for (let i = 0; i < this.inner_walls_count / 2; i ++ ) {
             for (let j = 0; j < 1000; j ++ ) {
                 // 在需要的范围内随机出坐标
-                let r = parseInt(Math.random() * this.rows);
-                let c = parseInt(Math.random() * this.cols);
+                let r = parseInt((Math.random() * this.rows).toString());
+                let c = parseInt((Math.random() * this.cols).toString());
                 if (g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c]) continue;
                 if (r === this.rows - 2 && c === 1 || r === 1 && c === this.cols - 2)
                     continue;
@@ -112,7 +112,8 @@ export class GameMap extends AcGameObject {
     }
 
     update_size() {
-        this.L = parseInt(Math.min(this.parent.clientWidth / this.cols, this.parent.clientHeight / this.rows));
+        this.L = parseInt((Math.min(this.parent.clientWidth / this.cols, this.parent.clientHeight / this.rows))
+            .toString());
         this.ctx.canvas.width = this.L * this.cols;
         this.ctx.canvas.height = this.L * this.rows;
     }
@@ -138,7 +139,7 @@ export class GameMap extends AcGameObject {
         }
         for (const snake of this.snakes) {
             let k = snake.cells.length;
-            if (!snake.check_tail_increasing()) {  // 当蛇尾会前进的时候，蛇尾不要判断
+            if (!snake.check_tail_increasing()) {  // 当蛇尾会前进的时候，蛇尾不用判断
                 k -- ;
             }
             for (let i = 0; i < k; i ++ ) {
