@@ -1,5 +1,7 @@
 package com.kob.backend.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ public class User {
     /**
      * 用户 id
      */
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -22,4 +25,9 @@ public class User {
      * 用户密码
      */
     private String password;
+
+    /**
+     * 用户头像
+     */
+    private String photo;
 }

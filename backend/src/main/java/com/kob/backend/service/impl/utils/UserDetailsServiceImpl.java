@@ -1,9 +1,8 @@
-package com.kob.backend.service.impl;
+package com.kob.backend.service.impl.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.User;
-import com.kob.backend.service.impl.utils.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserMapper userMapper;
+
     @Autowired
     public UserDetailsServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
