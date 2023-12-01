@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -25,26 +27,40 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public Map<String, String> register(String username, String password, String confirmedPassword) {
         Map<String, String> map = new HashMap<>();
-        if (null == username || (username = username.trim()).length() == 0) {
+        if (null == username) {
             map.put("error_message", "用户名不能为空！");
             return map;
         }
-        if (null == password || null == confirmedPassword || password.length() == 0 || confirmedPassword.length() == 0) {
-            map.put("error_message", "密码不能为空！");
+
+        // 判断是否包含特殊字符
+        String regEx = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(username);
+        if (m.find()) {
+            map.put("error_message", "用户名不能包含特殊字符！");
             return map;
         }
-        if (!password.equals(confirmedPassword)) {
-            map.put("error_message", "两次输入的密码不一致！");
-            return map;
-        }
+
         if (username.length() > 30) {
             map.put("error_message", "用户名过长！");
             return map;
         }
+
+        if (null == password || null == confirmedPassword || password.length() == 0 || confirmedPassword.length() == 0) {
+            map.put("error_message", "密码不能为空！");
+            return map;
+        }
+
+        if (!password.equals(confirmedPassword)) {
+            map.put("error_message", "两次输入的密码不一致！");
+            return map;
+        }
+
         if (password.length() > 50) {
             map.put("error_message", "密码过长！");
             return map;
         }
+
         // 校验用户名是否已被使用
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
