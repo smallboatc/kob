@@ -23,7 +23,7 @@ public class RegisterController {
     public Map<String, String> register(@RequestParam Map<String, String> map) {
         String username = map.get("username");
         String password = map.get("password");
-        String confirmPassword = map.get("confirmPassword");
-        return registerService.register(username, password, confirmPassword);
+        String confirmedPassword = map.get("confirmedPassword");
+        return registerService.register(username, password, confirmedPassword);
     }
 }

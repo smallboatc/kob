@@ -56,6 +56,11 @@ public class RegisterServiceImpl implements RegisterService {
             return map;
         }
 
+        if (password.length() < 6) {
+            map.put("error_message", "密码长度必须大于等于6！");
+            return map;
+        }
+
         if (password.length() > 50) {
             map.put("error_message", "密码过长！");
             return map;
