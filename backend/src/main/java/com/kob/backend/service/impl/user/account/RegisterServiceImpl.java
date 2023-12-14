@@ -77,7 +77,7 @@ public class RegisterServiceImpl implements RegisterService {
         // 当以上校验均通过时，将该用户存入数据库中
         String encodePassword = passwordEncoder.encode(password);
         String photo = "https://cdn.acwing.com/media/user/profile/photo/126318_lg_ca75777cc3.png";
-        User user = new User(null, username, encodePassword, photo);
+        User user = new User(null, username, encodePassword, photo, null);
         userMapper.insert(user);
 
         // 正常流程结束
