@@ -1,7 +1,8 @@
 package com.kob.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class User {
     /**
      * 用户 id
      */
+    @TableId
     private Integer id;
 
     /**
@@ -33,6 +35,6 @@ public class User {
     /**
      * 逻辑删除
      */
-    @TableField(value = "is_deleted", insertStrategy = FieldStrategy.DEFAULT)
+    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
     private Integer deleted;
 }

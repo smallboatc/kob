@@ -81,7 +81,7 @@ public class UpdateServiceImpl implements UpdateService {
         botQueryWrapper.and(wrapper -> wrapper.eq("content", content).or().eq("title", title));
         Long count = botMapper.selectCount(botQueryWrapper);
         if (count > 0) {
-            map.put("error_message", "修改失败，目标Bot已存在！");
+            map.put("error_message", "修改失败，目标Bot名称或代码已存在！");
             return map;
         }
 

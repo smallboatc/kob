@@ -1,7 +1,8 @@
 package com.kob.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class Bot {
     /**
      * Bot id （自增）
      */
+    @TableId
     private Integer id;
 
     /**
@@ -47,17 +49,19 @@ public class Bot {
      * Bot 创建时间，上海时间与 gmt 时间存在 8 小时时差
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     /**
-     * Bot 修改时间
+     * Bot 修改时间 (timezone = "GMT+8"与 timezone = "Asia/Shanghai" 两种写法在此处是等价的)
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
     /**
      * 逻辑删除
      */
-    @TableField(value = "is_deleted", insertStrategy = FieldStrategy.DEFAULT)
+    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
     private Integer deleted;
 }
