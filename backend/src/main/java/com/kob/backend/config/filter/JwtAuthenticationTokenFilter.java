@@ -40,15 +40,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         token = token.substring(7);
 
-        String userid;
+        String userId;
         try {
             Claims claims = JwtUtil.parseJWT(token);
-            userid = claims.getSubject();
+            userId = claims.getSubject();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        User user = userMapper.selectById(Integer.parseInt(userid));
+        User user = userMapper.selectById(Integer.parseInt(userId));
 
         if (user == null) {
             throw new RuntimeException("用户名未登录");
