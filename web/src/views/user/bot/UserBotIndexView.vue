@@ -66,7 +66,6 @@
               <thead>
               <tr>
                 <th>名称</th>
-                <th>天梯分</th>
                 <th>创建时间</th>
                 <th>操作</th>
               </tr>
@@ -74,7 +73,6 @@
               <tbody>
               <tr v-for="bot in bots" :key="bot.id">
                 <td>{{ bot.title }}</td>
-                <td>{{ bot.rating }}</td>
                 <td>{{ bot.gmtCreate }}</td>
                 <td>
                   <button type="button" class="btn btn-primary" style="margin-right: 10px;" data-bs-toggle="modal" :data-bs-target="'#update-bot-modal-' + bot.id">修改</button>
