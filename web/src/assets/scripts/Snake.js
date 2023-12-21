@@ -64,9 +64,9 @@ export class Snake extends AcGameObject {
             this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));
         }
 
-        if (!this.gameMap.check_valid(this.next_cell)) {  // 下一步操作撞了，蛇直接寄
+        /*if (!this.gameMap.check_valid(this.next_cell)) {  // 下一步操作撞了，蛇直接寄
             this.status = "die";
-        }
+        }*/
     }
 
     update_move() {
