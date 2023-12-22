@@ -111,7 +111,6 @@ public class MatchingPool extends Thread{
                 } finally {
                     lock.unlock();
                 }
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

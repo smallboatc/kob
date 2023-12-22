@@ -17,9 +17,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 @Component
 @ServerEndpoint("/websocket/{token}")  // 不要以'/'结尾
@@ -85,18 +83,19 @@ public class WebSocketServer {
         }
     }
 
+    // 提供给匹配系统，用于匹配成功后调用
     public static void startGame(Integer aId, Integer bId) {
         User a = userMapper.selectById(aId);
         User b = userMapper.selectById(bId);
 
-        Game game = new Game(13, 14, 20, a.getId(), b.getId());
+        Game game = new Game(13, 14, 20, aId, bId);
         game.createMap();
         game.start();
-        if (null != users.get(a.getId())) {
-            users.get(a.getId()).game = game;
+        if (null != users.get(aId)) {
+            users.get(aId).game = game;
         }
-        if (null != users.get(b.getId())) {
-            users.get(b.getId()).game = game;
+        if (null != users.get(bId)) {
+            users.get(bId).game = game;
         }
 
         JSONObject respGame = new JSONObject();
@@ -114,8 +113,8 @@ public class WebSocketServer {
         respA.put("opponent_photo", b.getPhoto());
         respA.put("game", respGame);
         // 给玩家A客户端返回结果
-        if (null != users.get(a.getId())) {
-            users.get(a.getId()).sendMessage(respA.toJSONString());
+        if (null != users.get(aId)) {
+            users.get(aId).sendMessage(respA.toJSONString());
         }
 
         JSONObject respB = new JSONObject();
@@ -124,8 +123,8 @@ public class WebSocketServer {
         respB.put("opponent_photo", a.getPhoto());
         respB.put("game", respGame);
         // 给玩家B客户端返回结果
-        if (null != users.get(b.getId())) {
-            users.get(b.getId()).sendMessage(respB.toJSONString());
+        if (null != users.get(bId)) {
+            users.get(bId).sendMessage(respB.toJSONString());
         }
     }
     
@@ -136,7 +135,6 @@ public class WebSocketServer {
         playerData.add("rating", this.user.getRating().toString());
 
         restTemplate.postForObject(ADD_PLAYER_URL, playerData, String.class);
-
     }
 
     private void stopMatching() {

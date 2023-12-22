@@ -63,7 +63,7 @@ public class Player {
         return res;
     }
 
-
+    // 获取玩家每一步的操作的字符串（用于存入数据库）
     public String getStepsString() {
         StringBuilder res = new StringBuilder();
         for (int d : steps) {
