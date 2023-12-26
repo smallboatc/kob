@@ -1,5 +1,6 @@
 package com.kob.backend.comsumer.utils;
 
+import com.kob.backend.pojo.Bot;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,19 @@ import java.util.List;
 @NoArgsConstructor
 public class Player {
     /**
-     * 玩家(蛇蛇) id
+     * 玩家 id
      */
     private Integer id;
+
+    /**
+     * 玩家当前选择出战的 bot id，-1表示亲自出战
+     */
+    private Integer botId;
+
+    /**
+     * 玩家当前选择出战的 bot 代码
+     */
+    private String botCode;
 
     /**
      * 起点横坐标

@@ -43,14 +43,14 @@ public class Bot {
     /**
      * Bot 创建时间，上海时间与 gmt 时间存在 8 小时时差
      */
-    @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     /**
      * Bot 修改时间 (timezone = "GMT+8"与 timezone = "Asia/Shanghai" 两种写法在此处是等价的)
      */
-    @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 

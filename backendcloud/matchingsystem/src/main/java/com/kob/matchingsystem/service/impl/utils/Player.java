@@ -14,6 +14,11 @@ public class Player {
     private Integer userId;
 
     /**
+     * 用户当前出战的 bot 的 id
+     */
+    private Integer botId;
+
+    /**
      * 用户天梯分
      */
     private Integer rating;
