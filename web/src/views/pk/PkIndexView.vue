@@ -21,6 +21,7 @@ export default {
     const store = useStore();
 
     store.commit("updateWinner", "none");
+    store.commit("updateIsRecord", false);
 
     const socketUrl = `ws://127.0.0.1:8090/websocket/${store.state.user.token}/`;
 

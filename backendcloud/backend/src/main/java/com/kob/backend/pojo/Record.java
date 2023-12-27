@@ -73,7 +73,7 @@ public class Record {
     /**
      * 创建时间
      */
-    @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
