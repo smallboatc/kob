@@ -30,13 +30,21 @@ public class AddServiceImpl implements AddService {
         UsernamePasswordAuthenticationToken authenticationToken =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticationToken.getPrincipal();
+
+        Map<String, String> map = new HashMap<>();
+
         User user = loginUser.getUser();
+
+        QueryWrapper<Bot> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user.getId());
+        if (botMapper.selectCount(queryWrapper) >= 10) {
+            map.put("error_message", "每位用户最多只能创建10个Bot！");
+            return map;
+        }
 
         String title = botData.get("title");
         String description = botData.get("description");
         String content = botData.get("content");
-
-        Map<String, String> map = new HashMap<>();
 
         if (null == title || title.length() == 0) {
             map.put("error_massage", "Bot标题不能为空！");

@@ -1,6 +1,5 @@
 package com.kob.backend.comsumer.utils;
 
-import com.kob.backend.pojo.Bot;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
