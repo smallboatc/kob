@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/rankList")
+@RequestMapping("/api/rankList")
 public class GetRankListController {
     private GetRankListService getRankListService;
 

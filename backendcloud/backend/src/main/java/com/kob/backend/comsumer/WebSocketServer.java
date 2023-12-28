@@ -32,9 +32,9 @@ public class WebSocketServer {
 
     public Game game = null;
 
-    private final static String ADD_PLAYER_URL = "http://127.0.0.1:8089/player/add/";
+    private final static String ADD_PLAYER_URL = "http://127.0.0.1:3001/player/add/";
 
-    private final static String REMOVE_PLAYER_URL = "http://127.0.0.1:8089/player/remove/";
+    private final static String REMOVE_PLAYER_URL = "http://127.0.0.1:3001/player/remove/";
 
     public static UserMapper userMapper;
 

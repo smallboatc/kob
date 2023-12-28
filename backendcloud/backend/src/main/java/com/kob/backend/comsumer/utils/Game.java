@@ -48,7 +48,7 @@ public class Game extends Thread{
      */
     private String winner = "";
 
-    private final static String ADD_BOT_URL = "http://127.0.0.1:8091/bot/add/";
+    private final static String ADD_BOT_URL = "http://127.0.0.1:3002/bot/add/";
 
     public Game(Integer rows, Integer cols, Integer innerWallsCount, Integer idA, Bot botA, Integer idB, Bot botB) {
         this.rows = rows;

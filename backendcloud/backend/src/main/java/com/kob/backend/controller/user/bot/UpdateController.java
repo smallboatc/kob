@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user/bot")
+@RequestMapping("/api/user/bot")
 public class UpdateController {
     private final UpdateService updateService;
 

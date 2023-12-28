@@ -2,6 +2,8 @@
   <PlayGround v-if="$store.state.pk.status === 'playing'" />
   <MatchGround v-if="$store.state.pk.status === 'matching'" />
   <ResultBoard v-if="$store.state.pk.winner !== 'none'" />
+  <div class="user-color" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.a_id)">左下角</div>
+  <div class="user-color" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.b_id)">右上角</div>
 </template>
 
 <script>
@@ -23,7 +25,7 @@ export default {
     store.commit("updateWinner", "none");
     store.commit("updateIsRecord", false);
 
-    const socketUrl = `ws://127.0.0.1:8090/websocket/${store.state.user.token}/`;
+    const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`;
 
     let socket = null;
     onMounted(() => {
@@ -48,7 +50,7 @@ export default {
           setTimeout(() => {
             store.commit("updateStatus", "playing");
           }, 200);
-          store.commit("updateGameMap", data.game);
+          store.commit("updateGame", data.game);
         } else if (data.event === "move") {
           console.log("data为: ",data)
           const game = store.state.pk.gameObject;
@@ -84,4 +86,10 @@ export default {
 </script>
 
 <style scoped>
+div.user-color {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  font-weight: 600;
+}
 </style>

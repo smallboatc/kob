@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user/account")
+@RequestMapping("/api/user/account")
 public class InfoController {
     private final InfoService infoService;
 
