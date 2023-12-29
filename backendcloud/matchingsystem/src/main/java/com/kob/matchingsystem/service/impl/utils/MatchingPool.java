@@ -75,7 +75,7 @@ public class MatchingPool extends Thread{
 
     // 尝试匹配所有玩家
     private void matchPlayers() {
-        System.out.println("matching... " + players.toString());
+        // System.out.println("matching... " + players.toString());
         boolean[] used = new boolean[players.size()];
         // 从前往后遍历，会优先匹配等待更久的玩家
         for (int i = 0; i < players.size(); i ++) {
