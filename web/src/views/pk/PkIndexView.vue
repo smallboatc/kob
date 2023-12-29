@@ -2,8 +2,8 @@
   <PlayGround v-if="$store.state.pk.status === 'playing'" />
   <MatchGround v-if="$store.state.pk.status === 'matching'" />
   <ResultBoard v-if="$store.state.pk.winner !== 'none'" />
-  <div class="user-color" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.a_id)">左下角</div>
-  <div class="user-color" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.b_id)">右上角</div>
+  <div class="user-color" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.a_id)">您在左下角</div>
+  <div class="user-color" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.b_id)">您在右上角</div>
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
     store.commit("updateWinner", "none");
     store.commit("updateIsRecord", false);
 
-    const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`;
+    const socketUrl = `wss://app5163.acapp.acwing.com.cn/websocket/${store.state.user.token}/`;
 
     let socket = null;
     onMounted(() => {
