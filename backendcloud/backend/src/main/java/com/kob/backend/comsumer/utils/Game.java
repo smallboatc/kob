@@ -363,6 +363,14 @@ public class Game extends Thread{
     @Override
     public void run() {
         for (int i = 0; i < 1000; i ++) {
+            // 第一回合要先等待前端加载的2秒钟，否则第一回合玩家只要3秒不输入就死了
+            if (i == 0) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             if (nextStep()) {
                 judge();
                 if ("playing".equals(status)) {

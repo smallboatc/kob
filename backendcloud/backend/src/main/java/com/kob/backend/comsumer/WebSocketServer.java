@@ -99,16 +99,7 @@ public class WebSocketServer {
 
         Bot botA = botMapper.selectById(aBotId), botB = botMapper.selectById(bBotId);
 
-
-        Game game = new Game(
-                13,
-                14,
-                20,
-                aId,
-                botA,
-                bId,
-                botB
-        );
+        Game game = new Game(13, 14, 20, aId, botA, bId, botB);
         game.createMap();
         game.start();
         if (null != users.get(aId)) {
