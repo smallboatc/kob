@@ -88,7 +88,7 @@ export default {
         },
         success(resp) {
           users.value = resp.users;
-          console.log(users.value);
+          // console.log(users.value);
           total_users = resp.users_count;
           udpate_pages();
         },

@@ -49,17 +49,17 @@ export default {
           });
           setTimeout(() => {
             store.commit("updateStatus", "playing");
-          }, 200);
+          }, 2000);
           store.commit("updateGame", data.game);
         } else if (data.event === "move") {
-          console.log("data为: ",data)
+          // console.log("data为: ",data)
           const game = store.state.pk.gameObject;
-          console.log("game对象为：", game)
+          // console.log("game对象为：", game)
           const [snake0, snake1] = game.snakes;
           snake0.set_direction(data.a_direction);
           snake1.set_direction(data.b_direction);
         } else if (data.event === "result") {
-          console.log(data)
+          // console.log(data)
           const game = store.state.pk.gameObject;
           const [snake0, snake1] = game.snakes;
           if (data.winner === "all" || data.winner === "B") {
