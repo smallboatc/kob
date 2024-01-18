@@ -59,7 +59,7 @@ public class MatchingPool extends Thread{
     private boolean checkMatchable(Player a, Player b) {
         int ratingDelta = Math.abs(a.getRating() - b.getRating());
         int waitedTime = Math.min(a.getWaitedTime(), b.getWaitedTime());
-        return ratingDelta <= waitedTime * 10;
+        return ratingDelta <= waitedTime * 10 && a.getUserId() != b.getUserId();
     }
 
     // 返回匹配成功结果
