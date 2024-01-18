@@ -69,10 +69,10 @@ export class GameMap extends AcGameObject {
                 else if (e.key === 'd') d = 1;
                 else if (e.key === 's') d = 2;
                 else if (e.key === 'a') d = 3;
-                /*else if (e.key === 'ArrowUp') snake1.set_direction(0);
-                else if (e.key === 'ArrowRight') snake1.set_direction(1);
-                else if (e.key === 'ArrowDown') snake1.set_direction(2);
-                else if (e.key === 'ArrowLeft') snake1.set_direction(3);*/
+                else if (e.key === 'ArrowUp') d = 0;
+                else if (e.key === 'ArrowRight') d = 1;
+                else if (e.key === 'ArrowDown') d = 2;
+                else if (e.key === 'ArrowLeft') d = 3;
 
                 if (d >= 0) {
                     this.store.state.pk.socket.send(JSON.stringify({
