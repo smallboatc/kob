@@ -47,7 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/account/token/", "/api/user/account/register/").permitAll()
+                .antMatchers(
+                        "/api/user/account/token/",
+                        "/api/user/account/register/",
+                        "/api/user/account/acwing/acapp/applyCode/",
+                        "/api/user/account/acwing/acapp/receiveCode/",
+                        "/api/user/account/qq/web/applyCode/",
+                        "/api/user/account/qq/web/receiveCode/"
+                ).permitAll()
                 .antMatchers("/pk/startGame/","/pk/receiveBotMove/").hasIpAddress("127.0.0.1")
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();

@@ -67,6 +67,14 @@ const routes = [
     }
   },
   {
+    path: "/user/account/qq/web/receiveCode",
+    name: "user_account_qq_receive_code",
+    component: ()=>import('@/views/user/account/UserAccountQQReceiveCodeView'),
+    meta:{
+      requestAuth : false
+    }
+  },
+  {
     path: "/user/account/register/",
     name: "user_account_register",
     component: UserAccountRegisterView,

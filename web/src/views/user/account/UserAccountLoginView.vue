@@ -14,9 +14,20 @@
           <div class="error-message">{{ error_message }}</div>
           <button type="submit" class="btn btn-primary">登录</button>
         </form>
+
+        <div @click="qq_login" style="cursor: pointer; text-align: center; margin-top: 10px; display: none">
+          <img height="30"
+               src="https://wiki.connect.qq.com/wp-content/uploads/2013/10/03_qq_symbol-1-250x300.png"
+               alt="QQ官方图标"/>
+          <br>
+          <div style="color: #09e309">
+            QQ一键登录
+          </div>
+        </div>
       </div>
     </div>
   </ContentField>
+
 </template>
 
 <script>
@@ -24,6 +35,7 @@ import ContentField from '../../../components/ContentField.vue'
 import { useStore } from 'vuex'
 import { ref } from 'vue'
 import router from '../../../router/index'
+import $ from 'jquery'
 
 export default {
   components: {
@@ -70,11 +82,24 @@ export default {
       })
     }
 
+    const qq_login = () => {
+      $.ajax({
+        url: "https://app5163.acapp.acwing.com.cn/api/user/account/qq/web/applyCode/",
+        type: "GET",
+        success: resp => {
+          if (resp.result === "success") {
+            window.location.assign(resp.apply_code_url);
+          }
+        }
+      })
+    }
+
     return {
       username,
       password,
       error_message,
       login,
+      qq_login
     }
   }
 }

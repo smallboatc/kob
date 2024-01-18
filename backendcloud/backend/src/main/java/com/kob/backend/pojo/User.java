@@ -38,6 +38,17 @@ public class User {
     private Integer rating;
 
     /**
+     * 用户的 AcWing openid（仅AcWing三方登录的用户）
+     */
+    private String openid;
+
+    /**
+     * 用户的 QQ openid（仅QQ三方登录的用户）
+     */
+    @TableField(value = "openid_qq")
+    private String openidQQ;
+
+    /**
      * 逻辑删除
      */
     @TableField(value = "is_deleted", fill = FieldFill.INSERT)
