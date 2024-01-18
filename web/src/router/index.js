@@ -3,6 +3,7 @@ import PkIndexView from '../views/pk/PkIndexView'
 import RecordIndexView from '../views/record/RecordIndexView'
 import RecordContentView from "@/views/record/RecordContentView.vue";
 import RanklistIndexView from '../views/ranklist/RanklistIndexView'
+import InfoView from "@/views/info/InfoView.vue";
 import UserBotIndexView from '../views/user/bot/UserBotIndexView'
 import NotFound from '../views/error/NotFound'
 import UserAccountLoginView from '../views/user/account/UserAccountLoginView'
@@ -31,7 +32,7 @@ const routes = [
     name: "record_index",
     component: RecordIndexView,
     meta: {
-      requestAuth: true,
+      requestAuth: false,
     }
   },
   {
@@ -39,7 +40,7 @@ const routes = [
     name: "record_content",
     component: RecordContentView,
     meta: {
-      requestAuth: true,
+      requestAuth: false,
     }
   },
   {
@@ -47,7 +48,15 @@ const routes = [
     name: "ranklist_index",
     component: RanklistIndexView,
     meta: {
-      requestAuth: true,
+      requestAuth: false,
+    }
+  },
+  {
+    path: "/info/",
+    name: "info_index",
+    component: InfoView,
+    meta: {
+      requestAuth: false,
     }
   },
   {
