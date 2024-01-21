@@ -25,7 +25,7 @@ export default {
     store.commit("updateWinner", "none");
     store.commit("updateIsRecord", false);
 
-    const socketUrl = `wss://app5163.acapp.acwing.com.cn/websocket/${store.state.user.token}/`;
+    const socketUrl = `wss://127.0.0.1:3000/websocket/${store.state.user.token}/`;
 
     let socket = null;
     onMounted(() => {
