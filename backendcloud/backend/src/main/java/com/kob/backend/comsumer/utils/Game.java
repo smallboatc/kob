@@ -8,10 +8,7 @@ import com.kob.backend.pojo.User;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Game extends Thread{
@@ -34,10 +31,14 @@ public class Game extends Thread{
 
     private final static int[] dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
 
-    private Player playerA, playerB;
+    private final Player playerA, playerB;
+
+    private String aiUserId;
     private Integer nextStepA = null;
     private Integer nextStepB = null;
-    private ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
+    private static final Random random = new Random();
+
     /**
      * 游戏状态，playing 表示游戏进行中， finished 表示游戏结束
      */
@@ -123,8 +124,8 @@ public class Game extends Thread{
     // 画地图
     private boolean draw() {
         // 初始化地图
-        for (int i = 0; i < g.length; i ++) {
-            Arrays.fill(g[i], 0);
+        for (int[] ints : g) {
+            Arrays.fill(ints, 0);
         }
         // 生成四周墙体障碍物
         for (int r = 0; r < this.rows; r ++) {
@@ -182,19 +183,31 @@ public class Game extends Thread{
     }
 
     private void sendBotCode(Player player) {
-        // 先判断是否是人工出战
-        if (player.getBotId().equals(-1)) return;
-        MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
-        data.add("userId", player.getId().toString());
-        data.add("botCode", player.getBotCode());
-        data.add("input", getInput(player));
-
-        WebSocketServer.restTemplate.postForObject(ADD_BOT_URL, data, String.class);
+        // 判断当前玩家是否是人机
+        if (player.getId() == -1) {
+            MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
+            // 每次随机一个 id 给当前的 ai
+            aiUserId = (random.nextInt(100000) * -1) + "";
+            data.add("userId", aiUserId);
+            data.add("botCode", player.getBotCode());
+            data.add("input", getInput(player));
+            // System.out.println("sendBot: " + aiUserId + " " + player.getBotId());
+            WebSocketServer.restTemplate.postForObject(ADD_BOT_URL, data, String.class);
+        }
+        else {
+            // 先判断是否是人工出战
+            if (player.getBotId().equals(-1)) return;
+            MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
+            data.add("userId", player.getId().toString());
+            data.add("botCode", player.getBotCode());
+            data.add("input", getInput(player));
+            WebSocketServer.restTemplate.postForObject(ADD_BOT_URL, data, String.class);
+        }
     }
 
     /**
      * 等待两名玩家的下一步操作
-     * @return
+     * @return 判断两名玩家是否存在下一步操作
      */
     private boolean nextStep() {
         try {
@@ -209,6 +222,12 @@ public class Game extends Thread{
         for (int i = 0; i < 50; i ++) {
             try {
                 Thread.sleep(100);
+                if (playerB.getId() == -1 && null == nextStepB) {
+                    if (Boolean.TRUE.equals(WebSocketServer.redisTemplate.hasKey(aiUserId))) {
+                        nextStepB = Integer.parseInt(Objects.requireNonNull(WebSocketServer.redisTemplate.opsForValue().get(aiUserId)));
+                        WebSocketServer.redisTemplate.delete(aiUserId);
+                    }
+                }
                 lock.lock();
                 try {
                     if (null != nextStepA && null != nextStepB) {
@@ -228,9 +247,9 @@ public class Game extends Thread{
 
     /**
      * 校验 cellsA的最后一步是否合法，需要校验 B 只需要将传递的参数换位即可
-     * @param cellsA
-     * @param cellsB
-     * @return
+     * @param cellsA 玩家A蛇蛇的组成单位
+     * @param cellsB 玩家B蛇蛇的组成单位
+     * @return 判断合法性
      */
     private boolean checkValid(List<Cell> cellsA, List<Cell> cellsB) {
         int n = cellsA.size();
@@ -239,8 +258,8 @@ public class Game extends Thread{
         if (g[cell.getX()][cell.getY()] == 1) return false;
         // 校验最后一步操作是否会与自己或者对手的身体相撞
         for (int i = 0; i < n - 1; i ++) {
-            if (cellsA.get(i).getX() == cell.getX() && cellsA.get(i).getY() == cell.getY()
-                    || cellsB.get(i).getX() == cell.getX() && cellsB.get(i).getY() == cell.getY()) {
+            if (Objects.equals(cellsA.get(i).getX(), cell.getX()) && Objects.equals(cellsA.get(i).getY(), cell.getY())
+                    || Objects.equals(cellsB.get(i).getX(), cell.getX()) && Objects.equals(cellsB.get(i).getY(), cell.getY())) {
                 return false;
             }
         }
@@ -270,7 +289,7 @@ public class Game extends Thread{
 
     /**
      * 广播消息通用方法
-     * @param message
+     * @param message 要发送的消息
      */
     private void sendAllMessage(String message) {
         if (null != WebSocketServer.users.get(playerA.getId())) {
@@ -330,8 +349,10 @@ public class Game extends Thread{
         }
 
         updateUserRating(playerA, ratingA);
-        updateUserRating(playerB, ratingB);
-
+        // 人机的分数不用改变
+        if (playerB.getId() != -1) {
+            updateUserRating(playerB, ratingB);
+        }
         Record record = new Record(
                 null,
                 playerA.getId(),

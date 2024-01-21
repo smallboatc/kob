@@ -84,10 +84,10 @@ public class AddServiceImpl implements AddService {
         }
 
         Date now = new Date();
-        System.out.println(now);
+        // System.out.println(now);
         Bot bot = new Bot(null, user.getId(), title, description, content, null,
                 null, null);
-        System.out.println(bot);
+        // System.out.println(bot);
 
         int state = botMapper.insert(bot);
         if (state > 0) {

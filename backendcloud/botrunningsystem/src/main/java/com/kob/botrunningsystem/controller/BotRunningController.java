@@ -13,7 +13,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/bot")
 public class BotRunningController {
-    private BotRunningService botRunningService;
+    private final BotRunningService botRunningService;
 
     @Autowired
     public BotRunningController(BotRunningService botRunningService) {

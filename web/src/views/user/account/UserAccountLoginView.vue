@@ -15,7 +15,7 @@
           <button type="submit" class="btn btn-primary">登录</button>
         </form>
 
-        <div @click="qq_login" style="cursor: pointer; text-align: center; margin-top: 10px; display: none">
+        <div @click="qq_login" style="cursor: pointer; text-align: center; margin-top: 10px;">
           <img height="30"
                src="https://wiki.connect.qq.com/wp-content/uploads/2013/10/03_qq_symbol-1-250x300.png"
                alt="QQ官方图标"/>

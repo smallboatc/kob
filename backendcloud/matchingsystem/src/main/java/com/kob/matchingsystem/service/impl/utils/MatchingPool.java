@@ -64,7 +64,7 @@ public class MatchingPool extends Thread{
 
     // 返回匹配成功结果
     private void sendResult(Player a, Player b) {
-        System.out.println("matched: " + a + " " + b);
+        // System.out.println("matched: " + a + " " + b);
         MultiValueMap<String, String> gameData = new LinkedMultiValueMap<>();
         gameData.add("aId", a.getUserId().toString());
         gameData.add("aBotId", a.getBotId().toString());
@@ -80,9 +80,17 @@ public class MatchingPool extends Thread{
         // 从前往后遍历，会优先匹配等待更久的玩家
         for (int i = 0; i < players.size(); i ++) {
             if (used[i]) continue;
+            Player a = players.get(i);
+            // 等待时间超过到达15秒直接匹配人机
+            if (players.get(i).getWaitedTime() >= 15) {
+                used[i] = true;
+                // 生成一个人机
+                Player b = new Player(-1, -1, 1500, 0);
+                sendResult(a, b);
+                continue;
+            }
             for (int j = i + 1; j < players.size(); j ++) {
                 if (used[j]) continue;
-                Player a = players.get(i);
                 Player b = players.get(j);
                 if (checkMatchable(a, b)) {
                     used[i] = used[j] = true;

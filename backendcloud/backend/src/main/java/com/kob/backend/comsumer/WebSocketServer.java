@@ -10,6 +10,7 @@ import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -44,6 +45,8 @@ public class WebSocketServer {
 
     private static BotMapper botMapper;
 
+    public static RedisTemplate<String, String> redisTemplate;
+
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         WebSocketServer.userMapper = userMapper;
@@ -64,6 +67,11 @@ public class WebSocketServer {
         WebSocketServer.botMapper = botMapper;
     }
 
+    @Autowired
+    public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
+        WebSocketServer.redisTemplate = redisTemplate;
+    }
+
 
     @OnOpen
     public void onOpen(Session session, @PathParam("token") String token) throws IOException {
@@ -74,19 +82,19 @@ public class WebSocketServer {
 
         if (null != this.user) {
             users.put(userId, this);
-            System.out.println("connected!");
+            // System.out.println("connected!");
         } else {
             this.session.close();
         }
 
-        System.out.println(users);
+        // System.out.println(users);
 
     }
 
     @OnClose
     public void onClose() {
         // 关闭链接
-        System.out.println("disconnected!");
+        // System.out.println("disconnected!");
         if (null != this.user) {
             users.remove(this.user.getId());
         }
@@ -105,7 +113,7 @@ public class WebSocketServer {
         if (null != users.get(aId)) {
             users.get(aId).game = game;
         }
-        if (null != users.get(bId)) {
+        if (null != users.get(bId) && bId != -1) {
             users.get(bId).game = game;
         }
 
@@ -140,7 +148,7 @@ public class WebSocketServer {
     }
     
     private void startMatching(Integer botId) {
-        System.out.println("start_matching!");
+        // System.out.println("start_matching!");
         MultiValueMap<String, String> playerData = new LinkedMultiValueMap<>();
         playerData.add("userId", this.user.getId().toString());
         playerData.add("rating", this.user.getRating().toString());
@@ -150,7 +158,7 @@ public class WebSocketServer {
     }
 
     private void stopMatching() {
-        System.out.println("stop_matching!");
+        // System.out.println("stop_matching!");
         MultiValueMap<String, String> playerData = new LinkedMultiValueMap<>();
         playerData.add("userId", this.user.getId().toString());
 
@@ -161,12 +169,12 @@ public class WebSocketServer {
         if (game.getPlayerA().getId().equals(user.getId())) {
             // 只有是人工出战的时候才接受前端用户的操作
             if (game.getPlayerA().getBotId().equals(-1)) {
-                System.out.println("A的方向：" + direction);
+                // System.out.println("A的方向：" + direction);
                 game.setNextStepA(direction);
             }
         } else if (game.getPlayerB().getId().equals(user.getId())) {
             if (game.getPlayerB().getBotId().equals(-1)) {
-                System.out.println("B的方向：" + direction);
+                // System.out.println("B的方向：" + direction);
                 game.setNextStepB(direction);
             }
         }
@@ -175,7 +183,7 @@ public class WebSocketServer {
     @OnMessage
     public void onMessage(String message, Session session) {
         // 从 Client 接收消息
-        System.out.println("receive message!");
+        // System.out.println("receive message!");
         JSONObject data = JSON.parseObject(message);
         String event = data.getString("event");
         
@@ -184,7 +192,7 @@ public class WebSocketServer {
         } else if ("stop-matching".equals(event)) {
             stopMatching();
         } else if ("move".equals(event)) {
-            System.out.println("收到玩家" + user.getUsername() + "的移动指令！");
+            // System.out.println("收到玩家" + user.getUsername() + "的移动指令！");
             move(data.getInteger("direction"));
         }
     }

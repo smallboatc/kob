@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user/account/qq/web")
 public class WebServiceController {
-    private WebService webService;
+    private final WebService webService;
 
     @Autowired
     public WebServiceController(WebService webService) {

@@ -29,8 +29,8 @@ public class AcAppServiceImpl implements AcAppService {
     // 申请用户信息 url
     private static final String APPLY_USER_INFO_URL = "https://www.acwing.com/third_party/api/meta/identity/getinfo/";
     private static final Random random = new Random();
-    private RedisTemplate<String, String> redisTemplate;
-    private UserMapper userMapper;
+    private final RedisTemplate<String, String> redisTemplate;
+    private final UserMapper userMapper;
 
     @Autowired
     public AcAppServiceImpl(RedisTemplate<String, String> redisTemplate, UserMapper userMapper) {
