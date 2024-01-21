@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,8 @@ public class RegisterServiceImpl implements RegisterService {
      * 每个用户创建时初始天梯分默认为 1500
      */
     private final Integer DEFAULT_RATING = 1500;
+
+    private final Random random = new Random();
 
     @Autowired
     public RegisterServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder) {
@@ -81,7 +84,14 @@ public class RegisterServiceImpl implements RegisterService {
 
         // 当以上校验均通过时，将该用户存入数据库中
         String encodePassword = passwordEncoder.encode(password);
-        String photo = "https://cdn.acwing.com/media/user/profile/photo/126318_lg_ca75777cc3.png";
+        String[] photos = {
+                "https://cdn.acwing.com/media/user/profile/photo/126318_lg_ca75777cc3.png",
+                "https://cdn.acwing.com/media/article/image/2024/01/21/126318_56105ae0b8-霸气熊猫.png",
+                "https://cdn.acwing.com/media/article/image/2024/01/21/126318_599fb5d4b8-小犀牛.png",
+                "https://cdn.acwing.com/media/article/image/2024/01/21/126318_5d2d0c56b8-一二.png"
+        };
+        int idx = random.nextInt(4);
+        String photo = photos[idx];
         User user = new User(null, username, encodePassword, photo, DEFAULT_RATING, null, null, null);
         userMapper.insert(user);
 
