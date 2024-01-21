@@ -13,7 +13,7 @@ export default {
     const myRoute = useRoute();
     const store = useStore();
     $.ajax({
-      url: "http://127.0.0.1:3000/api/user/account/qq/web/receiveCode/",
+      url: "https://app5163.acapp.acwing.com.cn/api/user/account/qq/web/receiveCode/",
       type: "GET",
       data: {
         code: myRoute.query.code,
