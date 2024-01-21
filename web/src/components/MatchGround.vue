@@ -101,6 +101,7 @@ div.user-photo {
 div.user-photo > img {
   border-radius: 50%;
   width: 20vh;
+  height: 20vh;
 }
 div.user-username {
   text-align: center;
