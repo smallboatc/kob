@@ -75,7 +75,10 @@ public class WebServiceImpl implements WebService {
         JSONObject resp = new JSONObject();
         resp.put("result", "failed");
         if (null == code || null == state) return resp;
-        if (Boolean.FALSE.equals(redisTemplate.hasKey(state))) return resp;
+        if (Boolean.FALSE.equals(redisTemplate.hasKey(state))) {
+            System.out.println("redis has not this state: " + state);
+            return resp;
+        }
         redisTemplate.delete(state);
         // 获取access_token
         List<NameValuePair> nameValuePairs = new LinkedList<>();
@@ -87,7 +90,10 @@ public class WebServiceImpl implements WebService {
         nameValuePairs.add(new BasicNameValuePair("fmt", "json"));
 
         String getString = HttpClientUtil.get(APPLY_ACCESS_TOKEN_URL, nameValuePairs);
-        if (null == getString) return resp;
+        if (null == getString) {
+            System.out.println("get APPLY_ACCESS_TOKEN_URL failed!");
+            return resp;
+        }
         JSONObject getResp = JSONObject.parseObject(getString);
         String accessToken = getResp.getString("access_token");
 
@@ -97,11 +103,17 @@ public class WebServiceImpl implements WebService {
         nameValuePairs.add(new BasicNameValuePair("fmt", "json"));
 
         getString = HttpClientUtil.get(APPLY_USER_OPENID_URL, nameValuePairs);
-        if(null == getString) return resp;
+        if(null == getString) {
+            System.out.println("get APPLY_USER_OPENID_URL failed!");
+            return resp;
+        }
         getResp = JSONObject.parseObject(getString);
         String openid = getResp.getString("openid");
 
-        if (accessToken == null || openid == null) return resp;
+        if (accessToken == null || openid == null) {
+            System.out.println("accessToken or openid is null!");
+            return resp;
+        }
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("openid_qq", openid);
@@ -131,13 +143,16 @@ public class WebServiceImpl implements WebService {
         // 50*50的头像
         String photo = getResp.getString("figureurl_1");
 
-        if (null == username || null == photo) return resp;
+        if (null == username || null == photo) {
+            System.out.println("username or photo is null!");
+            return resp;
+        }
 
         // 每次循环，用户名重复的概率为上一次的1/10
         for (int i = 0; i < 100; i ++) {
             QueryWrapper<User> usernameQueryWrapper = new QueryWrapper<>();
             usernameQueryWrapper.eq("username", username);
-            if (userMapper.selectCount(usernameQueryWrapper) > 0) break;
+            if (userMapper.selectCount(usernameQueryWrapper) == 0) break;
             username += (char)(random.nextInt(10) + '0');
             if (i == 99) return resp;
         }
