@@ -96,12 +96,12 @@ div.matchGround {
 }
 div.user-photo {
   text-align: center;
-  padding-top: 10vh;
+  padding-top: 20vh;
 }
 div.user-photo > img {
   border-radius: 50%;
-  width: 20vh;
-  height: 20vh;
+  width: 11.5vh;
+  height: 11.5vh;
 }
 div.user-username {
   text-align: center;
@@ -111,7 +111,7 @@ div.user-username {
   padding-top: 2vh;
 }
 div.user-select-bot {
-  padding-top: 20vh;
+  padding-top: 23vh;
 }
 div.user-select-bot > select {
   width: 60%;
