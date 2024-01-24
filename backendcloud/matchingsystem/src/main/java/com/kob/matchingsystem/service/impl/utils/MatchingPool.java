@@ -82,7 +82,7 @@ public class MatchingPool extends Thread{
             if (used[i]) continue;
             Player a = players.get(i);
             // 等待时间超过到达15秒直接匹配人机
-            if (players.get(i).getWaitedTime() >= 15) {
+            if (players.get(i).getWaitedTime() >= 8) {
                 used[i] = true;
                 // 生成一个人机
                 Player b = new Player(-1, -1, 1500, 0);

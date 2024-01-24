@@ -222,14 +222,17 @@ public class Game extends Thread{
         for (int i = 0; i < 50; i ++) {
             try {
                 Thread.sleep(100);
-                if (playerB.getId() == -1 && null == nextStepB) {
-                    if (Boolean.TRUE.equals(WebSocketServer.redisTemplate.hasKey(aiUserId))) {
-                        nextStepB = Integer.parseInt(Objects.requireNonNull(WebSocketServer.redisTemplate.opsForValue().get(aiUserId)));
-                        WebSocketServer.redisTemplate.delete(aiUserId);
-                    }
-                }
-                lock.lock();
                 try {
+                    lock.lock();
+
+                    if (playerB.getId() == -1 && null == nextStepB) {
+                        if (Boolean.TRUE.equals(WebSocketServer.redisTemplate.hasKey(aiUserId))) {
+                            nextStepB = Integer.parseInt(
+                                    Objects.requireNonNull(WebSocketServer.redisTemplate.opsForValue().get(aiUserId)));
+                            WebSocketServer.redisTemplate.delete(aiUserId);
+                        }
+                    }
+
                     if (null != nextStepA && null != nextStepB) {
                         playerA.getSteps().add(nextStepA);
                         playerB.getSteps().add(nextStepB);
