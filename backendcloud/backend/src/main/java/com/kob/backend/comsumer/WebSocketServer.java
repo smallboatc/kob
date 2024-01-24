@@ -127,7 +127,7 @@ public class WebSocketServer {
         respGame.put("map", game.getG());
 
         JSONObject respA = new JSONObject();
-        respA.put("event", "start-matching");
+        respA.put("event", "start-game");
         respA.put("opponent_username", b.getUsername());
         respA.put("opponent_photo", b.getPhoto());
         respA.put("game", respGame);
@@ -137,7 +137,7 @@ public class WebSocketServer {
         }
 
         JSONObject respB = new JSONObject();
-        respB.put("event", "start-matching");
+        respB.put("event", "start-game");
         respB.put("opponent_username", a.getUsername());
         respB.put("opponent_photo", a.getPhoto());
         respB.put("game", respGame);

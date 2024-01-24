@@ -420,6 +420,14 @@ public class Game extends Thread{
                 sendResult();
                 break;
             }
+            // 如果两边都是Bot出战，则需要线程睡眠300ms，否则后端代码运行太快，前端渲染来不及完成每一步的渲染方向就被改变
+            if (playerA.getBotId() != -1 && (playerB.getId() == -1 || playerB.getBotId() != -1)) {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 }
