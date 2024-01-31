@@ -89,7 +89,7 @@ export default {
 <style scoped>
 div.user-color {
   text-align: center;
-  color: white;
+  color: rgb(204, 16, 16);
   font-size: 30px;
   font-weight: 600;
 }

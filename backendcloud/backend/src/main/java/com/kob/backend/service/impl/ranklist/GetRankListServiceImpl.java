@@ -14,17 +14,17 @@ import java.util.List;
 
 @Service
 public class GetRankListServiceImpl implements GetRankListService {
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public void GetRankListServiceImpl(UserMapper userMapper) {
+    public GetRankListServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
     @Override
     public JSONObject getList(Integer page) {
         IPage<User> userIPage = new Page<>(page, 10);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("rating");
+        queryWrapper.orderByDesc("rating", "id");
         List<User> users = userMapper.selectPage(userIPage, queryWrapper).getRecords();
         JSONObject resp = new JSONObject();
         // 清空密码

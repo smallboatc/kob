@@ -17,11 +17,11 @@ import java.util.List;
 
 @Service
 public class GetRecordListServiceImpl implements GetRecordListService {
-    private RecordMapper recordMapper;
-    private UserMapper userMapper;
+    private final RecordMapper recordMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public void GetRecordListServiceImpl(RecordMapper recordMapper, UserMapper userMapper) {
+    public GetRecordListServiceImpl(RecordMapper recordMapper, UserMapper userMapper) {
         this.recordMapper = recordMapper;
         this.userMapper = userMapper;
     }

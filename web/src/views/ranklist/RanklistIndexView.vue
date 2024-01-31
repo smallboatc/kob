@@ -21,13 +21,13 @@
     <nav aria-label="...">
       <ul class="pagination" style="float: right;">
         <li class="page-item" @click="click_page(-2)">
-          <a class="page-link" href="#">前一页</a>
+          <a class="page-link" href="#">上一页</a>
         </li>
         <li :class="'page-item ' + page.is_active" v-for="page in pages" :key="page.number" @click="click_page(page.number)">
           <a class="page-link" href="#">{{ page.number }}</a>
         </li>
         <li class="page-item" @click="click_page(-1)">
-          <a class="page-link" href="#">后一页</a>
+          <a class="page-link" href="#">下一页</a>
         </li>
       </ul>
     </nav>

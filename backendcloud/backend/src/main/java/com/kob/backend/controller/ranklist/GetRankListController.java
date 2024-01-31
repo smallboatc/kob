@@ -10,10 +10,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/rankList")
 public class GetRankListController {
-    private GetRankListService getRankListService;
+    private final GetRankListService getRankListService;
 
     @Autowired
-    public void GetRankListController(GetRankListService getRankListService) {
+    public GetRankListController(GetRankListService getRankListService) {
         this.getRankListService = getRankListService;
     }
 

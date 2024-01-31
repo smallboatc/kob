@@ -10,10 +10,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/record")
 public class GetRecordListController {
-    private GetRecordListService getRecordListService;
+    private final GetRecordListService getRecordListService;
 
     @Autowired
-    public void GetRecordListController (GetRecordListService getRecordListService) {
+    public GetRecordListController (GetRecordListService getRecordListService) {
         this.getRecordListService = getRecordListService;
     }
 
