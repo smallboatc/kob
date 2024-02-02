@@ -51,6 +51,23 @@ export default {
     let total_users = 0;
     let pages = ref([]);
 
+    if (!store.state.user.is_login) {
+      const jwt = localStorage.getItem("jwt")
+      if (jwt) {
+        store.commit("updateToken", jwt)
+        store.dispatch("getInfo", {
+          success() {
+            store.commit("updatePullingInfo", false)
+          },
+          error() {
+            store.commit("updatePullingInfo", false)
+          }
+        })
+      } else {
+        store.commit("updatePullingInfo", false)
+      }
+    }
+
     const click_page = page => {
       if (page === -2) page = current_page - 1;
       else if (page === -1) page = current_page + 1;

@@ -82,6 +82,7 @@
 import ContentField from '../../components/ContentField.vue'
 import { VAceEditor } from "vue3-ace-editor";
 import ace from "ace-builds";
+import {useStore} from "vuex";
 
 export default {
   components: {
@@ -89,6 +90,24 @@ export default {
     VAceEditor
   },
   setup() {
+    const store = useStore();
+    if (!store.state.user.is_login) {
+      const jwt = localStorage.getItem("jwt")
+      if (jwt) {
+        store.commit("updateToken", jwt)
+        store.dispatch("getInfo", {
+          success() {
+            store.commit("updatePullingInfo", false)
+          },
+          error() {
+            store.commit("updatePullingInfo", false)
+          }
+        })
+      } else {
+        store.commit("updatePullingInfo", false)
+      }
+    }
+
     ace.config.set(
         "basePath",
         "https://cdn.jsdelivr.net/npm/ace-builds@" +
