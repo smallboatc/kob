@@ -10,4 +10,4 @@
 | MyBatisPlus | ORM框架 |
 | MicroService | 微服务 |
 
-项目总结笔记：[https://blog.csdn.net/m0_65894434/article/details/135755251](https://blog.csdn.net/m0_65894434/article/details/135755251)
+项目总结笔记：[https://blog.csdn.net/SmallBoatC/article/details/136055556](https://blog.csdn.net/SmallBoatC/article/details/136055556)
