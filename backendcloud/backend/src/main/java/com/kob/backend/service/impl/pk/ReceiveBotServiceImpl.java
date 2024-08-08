@@ -11,7 +11,6 @@ import java.time.Duration;
 public class ReceiveBotServiceImpl implements ReceiveBotMoveService {
     @Override
     public String receiveBotMove(Integer userId, Integer direction) {
-         // System.out.println("receive bot move: " + userId + " " + direction);
         // 判断人机
         if (userId < 0) {
             WebSocketServer.redisTemplate.opsForValue().set(userId.toString(), direction.toString());

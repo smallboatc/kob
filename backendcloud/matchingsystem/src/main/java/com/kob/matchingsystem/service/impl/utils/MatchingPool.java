@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Component
-public class MatchingPool extends Thread{
+@SuppressWarnings("all")
+public class MatchingPool extends Thread {
     private static List<Player> players = new ArrayList<>();
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -81,7 +82,7 @@ public class MatchingPool extends Thread{
         for (int i = 0; i < players.size(); i ++) {
             if (used[i]) continue;
             Player a = players.get(i);
-            // 等待时间超过到达15秒直接匹配人机
+            // 等待时间超过到达10秒直接匹配人机
             if (players.get(i).getWaitedTime() >= 8) {
                 used[i] = true;
                 // 生成一个人机

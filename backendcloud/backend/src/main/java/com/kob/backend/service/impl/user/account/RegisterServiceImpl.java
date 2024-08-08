@@ -85,7 +85,7 @@ public class RegisterServiceImpl implements RegisterService {
         // 当以上校验均通过时，将该用户存入数据库中
         String encodePassword = passwordEncoder.encode(password);
         String[] photos = {
-                "https://cdn.acwing.com/media/user/profile/photo/126318_lg_ca75777cc3.png",
+                "https://cdn.acwing.com/media/article/image/2024/03/29/126318_b71a3d44ed-luffy.png",
                 "https://cdn.acwing.com/media/article/image/2024/01/21/126318_56105ae0b8-霸气熊猫.png",
                 "https://cdn.acwing.com/media/article/image/2024/01/21/126318_599fb5d4b8-小犀牛.png",
                 "https://cdn.acwing.com/media/article/image/2024/01/21/126318_5d2d0c56b8-一二.png"

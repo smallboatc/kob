@@ -6,16 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Bot implements java.util.function.Supplier<Integer> {
+public class Bot implements java.util.function.IntSupplier {
+    @Override
+    public int getAsInt() {
+        File file = new File("input.txt");
+        try (Scanner sc = new Scanner(file)) {
+            return nextMove(sc.next());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     static class Cell {
-        public int x, y;
+        public final int x;
+        public final int y;
         public Cell(int x, int y) {
             this.x = x;
             this.y = y;
         }
     }
 
-    private boolean check_tail_increasing(int step) {  // 检验当前回合，蛇的长度是否增加
+    private boolean checkTailIncreasing(int step) {  // 检验当前回合，蛇的长度是否增加
         if (step <= 10) return true;
         return step % 3 == 1;
     }
@@ -24,8 +35,10 @@ public class Bot implements java.util.function.Supplier<Integer> {
         steps = steps.substring(1, steps.length() - 1);
         List<Cell> res = new ArrayList<>();
 
-        int[] dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
-        int x = sx, y = sy;
+        int[] dx = {-1, 0, 1, 0};
+        int[] dy = {0, 1, 0, -1};
+        int x = sx;
+        int y = sy;
         int step = 0;
         res.add(new Cell(x, y));
         for (int i = 0; i < steps.length(); i ++ ) {
@@ -33,7 +46,7 @@ public class Bot implements java.util.function.Supplier<Integer> {
             x += dx[d];
             y += dy[d];
             res.add(new Cell(x, y));
-            if (!check_tail_increasing( ++ step)) {
+            if (!checkTailIncreasing( ++ step)) {
                 res.remove(0);
             }
         }
@@ -51,8 +64,10 @@ public class Bot implements java.util.function.Supplier<Integer> {
             }
         }
 
-        int aSx = Integer.parseInt(strs[1]), aSy = Integer.parseInt(strs[2]);
-        int bSx = Integer.parseInt(strs[4]), bSy = Integer.parseInt(strs[5]);
+        int aSx = Integer.parseInt(strs[1]);
+        int aSy = Integer.parseInt(strs[2]);
+        int bSx = Integer.parseInt(strs[4]);
+        int bSy = Integer.parseInt(strs[5]);
 
         List<Cell> aCells = getCells(aSx, aSy, strs[3]);
         List<Cell> bCells = getCells(bSx, bSy, strs[6]);
@@ -60,7 +75,8 @@ public class Bot implements java.util.function.Supplier<Integer> {
         for (Cell c: aCells) g[c.x][c.y] = 1;
         for (Cell c: bCells) g[c.x][c.y] = 1;
 
-        int[] dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
+        int[] dx = {-1, 0, 1, 0};
+        int[] dy = {0, 1, 0, -1};
         for (int i = 0; i < 4; i ++ ) {
             int x = aCells.get(aCells.size() - 1).x + dx[i];
             int y = aCells.get(aCells.size() - 1).y + dy[i];
@@ -70,16 +86,5 @@ public class Bot implements java.util.function.Supplier<Integer> {
         }
 
         return 0;
-    }
-
-    @Override
-    public Integer get() {
-        File file = new File("input.txt");
-        try {
-            Scanner sc = new Scanner(file);
-            return nextMove(sc.next());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

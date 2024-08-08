@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 @Component
-public class Consumer extends Thread{
+public class Consumer extends Thread {
     private Bot bot;
     private static RestTemplate restTemplate;
     private final static String RECEIVE_BOT_MOVE_URL = "http://127.0.0.1:3000/pk/receiveBotMove/";
@@ -58,8 +58,6 @@ public class Consumer extends Thread{
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        Integer direction = botInterface.get();
 
         MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
         data.add("userId", bot.getUserId().toString());

@@ -13,7 +13,7 @@ export default {
     const myRoute = useRoute();
     const store = useStore();
     $.ajax({
-      url: "https://app5163.acapp.acwing.com.cn/api/user/account/qq/web/receiveCode/",
+      url: "https://smallboat.games/api/user/account/qq/web/receiveCode/",
       type: "GET",
       data: {
         code: myRoute.query.code,

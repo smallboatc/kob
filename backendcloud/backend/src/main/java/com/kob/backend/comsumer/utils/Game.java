@@ -11,7 +11,7 @@ import org.springframework.util.MultiValueMap;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Game extends Thread{
+public class Game extends Thread {
     /**
      * 游戏地图行数
      */
@@ -186,7 +186,7 @@ public class Game extends Thread{
         // 判断当前玩家是否是人机
         if (player.getId() == -1) {
             MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
-            // 每次随机一个 id 给当前的 ai
+            // 每次随机一个负数 id 给当前的 ai
             aiUserId = (random.nextInt(100000) * -1) + "";
             data.add("userId", aiUserId);
             data.add("botCode", player.getBotCode());
@@ -420,7 +420,7 @@ public class Game extends Thread{
                 sendResult();
                 break;
             }
-            // 如果两边都是Bot出战，则需要线程睡眠300ms，否则后端代码运行太快，前端渲染来不及完成每一步的渲染方向就被改变（已在nextstep中睡眠）
+            // 如果两边都是Bot出战，则需要线程睡眠300ms，否则后端代码运行太快，前端渲染来不及完成每一步的渲染方向就被改变（现已在nextstep中睡眠）
             /*if (playerA.getBotId() != -1 && (playerB.getId() == -1 || playerB.getBotId() != -1)) {
                 try {
                     Thread.sleep(300);

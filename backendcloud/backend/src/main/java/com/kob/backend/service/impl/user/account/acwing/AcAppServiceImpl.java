@@ -23,7 +23,7 @@ public class AcAppServiceImpl implements AcAppService {
     private static final String APPID = "5163";
     private static final String APP_SECRET = "bf9e6965752f47ef93c6969264390f10";
     // 回调链接
-    private static final String REDIRECT_URI = "https://app5163.acapp.acwing.com.cn/api/user/account/acwing/acapp/receiveCode/";
+    private static final String REDIRECT_URI = "https://smallboat.games/api/user/account/acwing/acapp/receiveCode/";
     // 申请授权令牌 url
     private static final String APPLY_ACCESS_TOKEN_URL = "https://www.acwing.com/third_party/api/oauth2/access_token/";
     // 申请用户信息 url

@@ -13,7 +13,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/pk")
 public class ReceiveBotMoveController {
-    private ReceiveBotMoveService receiveBotMoveService;
+    private final ReceiveBotMoveService receiveBotMoveService;
 
     @Autowired
     public ReceiveBotMoveController(ReceiveBotMoveService receiveBotMoveService) {

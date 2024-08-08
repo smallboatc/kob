@@ -84,7 +84,7 @@ export default {
 
     const qq_login = () => {
       $.ajax({
-        url: "https://app5163.acapp.acwing.com.cn/api/user/account/qq/web/applyCode/",
+        url: "https://smallboat.games/api/user/account/qq/web/applyCode/",
         type: "GET",
         success: resp => {
           if (resp.result === "success") {

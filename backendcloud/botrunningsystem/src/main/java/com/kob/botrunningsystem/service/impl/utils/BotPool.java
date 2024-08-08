@@ -1,10 +1,13 @@
 package com.kob.botrunningsystem.service.impl.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Slf4j
 public class BotPool extends Thread{
     private static final ReentrantLock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
@@ -34,6 +37,7 @@ public class BotPool extends Thread{
                     condition.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                     break;
                 } finally {
                     lock.unlock();

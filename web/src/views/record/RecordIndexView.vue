@@ -108,7 +108,7 @@ export default {
     const pull_page = page => {
       current_page = page;
       $.ajax({
-        url: "https://app5163.acapp.acwing.com.cn/api/record/getList/",
+        url: "https://smallboat.games/api/record/getList/",
         data: {
           page,
         },
