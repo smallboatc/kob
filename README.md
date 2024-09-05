@@ -10,4 +10,4 @@
 | MyBatisPlus | ORM框架 |
 | MicroService | 微服务 |
 
-项目总结笔记：[https://blog.csdn.net/SmallBoatC/article/details/136055556](https://blog.csdn.net/SmallBoatC/article/details/136055556)
+项目总结笔记：[笔记链接](https://smallboatc.github.io/2024/02/27/King%20of%20Bots%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0/)
